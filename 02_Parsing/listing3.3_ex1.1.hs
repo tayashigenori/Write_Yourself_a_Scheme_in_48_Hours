@@ -33,6 +33,7 @@ parseAtom = do
                          _    -> Atom atom
 
 parseNumber :: Parser LispVal
+-- exercise 1.1
 --parseNumber = liftM (Number . read) $ many1 digit
 parseNumber = do
                 number <- many1 digit
