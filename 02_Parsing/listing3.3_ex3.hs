@@ -13,11 +13,12 @@ data LispVal = Atom String
              | DottedList [LispVal] LispVal
              | Number Integer
              | String String
-             | Bool Bool
+             | Bool Bool deriving Show
 
 parseString :: Parser LispVal
 parseString = do
                 char '"'
+-- exercise 2
 --                x <- many (noneOf "\"")
                 x <- many ( escapedChars <|> noneOf "\"\\" )
                 char '"'
@@ -26,6 +27,7 @@ parseString = do
 escapedChars :: Parser Char
 escapedChars = do
                 char '\\'
+-- exercise 3
 --                x <- oneOf "\\\""
 --                return x
                 x <- oneOf "\\\"nrt"
@@ -47,7 +49,9 @@ parseAtom = do
                          _    -> Atom atom
 
 parseNumber :: Parser LispVal
+-- exercise 1.1
 --parseNumber = liftM (Number . read) $ many1 digit
+-- exercise 1.2
 --parseNumber = do
 --                number <- many1 digit
 --                return $ (Number . read) number
@@ -72,5 +76,8 @@ readExpr input = case parse parseExpr "lisp" input of
 --    Right val -> "Found value"
 
 main :: IO ()
-main = do args <- getArgs
-          putStrLn (readExpr (args !! 0))
+--main = do args <- getArgs
+--          putStrLn (readExpr (args !! 0))
+main = do
+         args <- getArgs
+         parseTest parseExpr (args !! 0)
