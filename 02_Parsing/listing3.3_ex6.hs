@@ -1,6 +1,7 @@
 import Text.ParserCombinators.Parsec hiding (spaces)
 import System.Environment
 import Control.Monad
+-- exercise 4
 import Numeric
 
 symbol :: Parser Char
