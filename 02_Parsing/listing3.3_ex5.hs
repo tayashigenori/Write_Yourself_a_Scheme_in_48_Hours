@@ -42,18 +42,17 @@ parseString = do
                 return $ String x
 
 escapedChars :: Parser Char
-escapedChars = do
-                char '\\'
 -- exercise 3
+escapedChars = do x <- char '\\' >> oneOf "\\\"nrt"
+                  return $ case x of
+                    'n' -> '\n'
+                    'r' -> '\r'
+                    't' -> '\t'
+                    _ -> x
+--escapedChars = do
+--                char '\\'
 --                x <- oneOf "\\\""
 --                return x
-                x <- oneOf "\\\"nrt"
-                return $ case x of
-                  '\\' -> x
-                  '"'  -> x
-                  'n'  -> '\n'
-                  'r'  -> '\r'
-                  't'  -> '\t'
 
 parseAtom :: Parser LispVal
 parseAtom = do
